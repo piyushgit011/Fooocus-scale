@@ -1,5 +1,7 @@
 import threading
 from PIL import Image
+import os
+import numpy as np
 
 class AsyncTask:
     def __init__(self, args):
@@ -9,6 +11,13 @@ class AsyncTask:
 
 
 async_tasks = []
+
+def process_image1(image_path):
+    # Your image processing code here
+    img = Image.open(image_path)
+    # Example: Convert the image to a NumPy array
+    img_array = np.array(img)
+    return img_array
 
 
 def worker():
@@ -273,8 +282,9 @@ def worker():
                     and isinstance(inpaint_input_image, dict):
                 inpaint_image = inpaint_input_image['image']
                 inpaint_mask = inpaint_input_image['mask'][:, :, 0]
-                mask_image = Image.fromarray(inpaint_mask)       
-                mask_image.save('mask.png')
+                image_path = 'mask.png'  # Replace with the actual path to your image
+                if os.path.exists(image_path):
+                   inpaint_mask = process_image(image_path)        
                 inpaint_image = HWC3(inpaint_image)
                 if isinstance(inpaint_image, np.ndarray) and isinstance(inpaint_mask, np.ndarray) \
                         and (np.any(inpaint_mask > 127) or len(outpaint_selections) > 0):
