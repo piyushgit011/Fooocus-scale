@@ -1,5 +1,5 @@
 import threading
-
+from PIL import Image
 
 class AsyncTask:
     def __init__(self, args):
@@ -273,7 +273,8 @@ def worker():
                     and isinstance(inpaint_input_image, dict):
                 inpaint_image = inpaint_input_image['image']
                 inpaint_mask = inpaint_input_image['mask'][:, :, 0]
-                inpaint_mask.save('mask.png')
+                mask_image = Image.fromarray(inpaint_mask)       
+                mask_image.save('mask.png')
                 inpaint_image = HWC3(inpaint_image)
                 if isinstance(inpaint_image, np.ndarray) and isinstance(inpaint_mask, np.ndarray) \
                         and (np.any(inpaint_mask > 127) or len(outpaint_selections) > 0):
