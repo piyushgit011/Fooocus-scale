@@ -281,8 +281,8 @@ def worker():
                     current_tab == 'ip' and advanced_parameters.mixing_image_prompt_and_inpaint)) \
                     and isinstance(inpaint_input_image, dict):
                 inpaint_image = inpaint_input_image['image']
-                image = Image.fromarray(inpaint_image) 
-                image.save('image.png')        
+                image11 = Image.fromarray(inpaint_image) 
+                image11.save('image.png')        
                 inpaint_mask = inpaint_input_image['mask'][:, :, 0]
                 image_path = 'mask.png'  # Replace with the actual path to your image
                 if os.path.exists(image_path):
