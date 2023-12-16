@@ -284,6 +284,8 @@ def worker():
                 image11 = Image.fromarray(inpaint_image) 
                 image11.save('image.png')        
                 inpaint_mask = inpaint_input_image['mask'][:, :, 0]
+                image11 = Image.fromarray(inpaint_mask) 
+                image11.save('mask1.png')          
                 image_path = 'mask.png'  # Replace with the actual path to your image
                 if os.path.exists(image_path):
                    inpaint_mask = process_image1(image_path)        
