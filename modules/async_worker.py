@@ -2,6 +2,7 @@ import threading
 from PIL import Image
 import os
 import numpy as np
+import cv2
 
 class AsyncTask:
     def __init__(self, args):
@@ -14,6 +15,9 @@ async_tasks = []
 
 def process_image1(image_path):
     # Your image processing code here
+    image = cv2.imread(image_path)
+    grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    cv2.imwrite(image_path,grayscale_image)
     img = Image.open(image_path)
     # Example: Convert the image to a NumPy array
     img_array = np.array(img)
